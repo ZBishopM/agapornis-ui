@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>agapornis-ui — galería</title>
+<link rel="stylesheet" href="agapornis.css" />
+<style>
+  body { margin: 0; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  section { margin-top: 32px; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .swatch { width: 132px; }
+  .swatch b { display: block; height: 56px; border-radius: var(--radius-ctl); border: 1px solid var(--border); }
+  .swatch span { display: block; margin-top: 6px; font: 11px/1.4 var(--font-mono); color: var(--text-muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .list { max-height: 160px; overflow: auto; }
+  .list div { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .demo-menu { position: relative; }
+  .demo-menu .glass { position: absolute; top: 40px; left: 0; width: 220px; padding: 4px; z-index: 2; }
+  .menu-row { padding: 8px 10px; border-radius: var(--radius-ctl); font-size: 13px; cursor: pointer; }
+  .menu-row:hover { background: var(--hover); }
+  .dialog-backdrop { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; }
+  .dialog { width: min(380px, 92vw); }
+  .stripes { height: 120px; border-radius: var(--radius-panel); background:
+    repeating-linear-gradient(45deg, #1b1b1d 0 12px, #2a3020 12px 24px); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="ag-label">agapornis-ui v0.1.0</div>
+  <h1 class="ag-title">Galería</h1>
+  <p class="ag-muted">Superficies en capas, tinta por transparencias, un acento sage y un relleno militar. Solo oscuro.</p>
+
+  <section>
+    <div class="ag-label">Superficies y tinta</div>
+    <div class="row stagger" id="swatches"></div>
+  </section>
+
+  <section>
+    <div class="ag-label">Texto</div>
+    <div class="ag-card">
+      <div class="ag-title" style="font-size:20px">Título en Geist, tracking negativo</div>
+      <p style="margin:8px 0">Texto principal. <span class="ag-muted">Secundario, para contexto.</span> <span style="color:var(--text-faint)">Tenue, para metadatos.</span></p>
+      <p style="margin:0"><a href="#" style="color:var(--accent)">Enlace en sage</a> · <span class="ag-mono">Geist Mono: S/ 1.234,56 · 84f47a5</span></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="ag-label">Controles</div>
+    <div class="row">
+      <button class="ag-btn ag-btn-primary">Guardar</button>
+      <button class="ag-btn">Secundario</button>
+      <button class="ag-btn ag-btn-ghost">Fantasma</button>
+      <button class="ag-btn ag-btn-danger">Eliminar</button>
+      <button class="ag-btn" disabled>Deshabilitado</button>
+      <input class="ag-input" placeholder="buscar…" />
+      <span class="ag-chip">backlog</span>
+      <span class="ag-chip is-active">activo</span>
+      <span class="ag-loader" aria-label="cargando"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i></span>
+    </div>
+  </section>
+
+  <section>
+    <div class="ag-label">Estados</div>
+    <div class="row">
+      <span style="color:var(--success)">+ S/ 120,00 ingreso</span>
+      <span style="color:var(--danger)">− S/ 9,90 egreso</span>
+      <span style="color:var(--warning)">aviso</span>
+      <span style="color:var(--accent)">acento sage</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="ag-label">Tarjetas, scroll con borde desvanecido</div>
+    <div class="grid">
+      <div class="ag-card fade-in"><div class="ag-label">Entrada</div><p class="ag-muted" style="margin:6px 0 0">500 ms, expo, sube 4 px.</p></div>
+      <div class="ag-card"><div class="list ag-edge-fade" id="list"></div></div>
+      <div class="ag-card">
+        <button class="ag-btn" id="toggle">Plegar</button>
+        <div class="collapse" id="col"><div><p class="ag-muted">Contenido plegable con grid-template-rows, sin medir alturas.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="ag-label">Flotantes (vidrio solo con puntero fino; en táctil, sólido)</div>
+    <div class="stripes"></div>
+    <div class="row" style="margin-top:-100px;padding:12px">
+      <div class="demo-menu">
+        <button class="ag-btn" id="menu-btn">Abrir menú</button>
+        <div class="glass" id="menu" hidden>
+          <div class="menu-row">Renombrar</div>
+          <div class="menu-row">Duplicar</div>
+          <div class="menu-row" style="color:var(--danger)">Eliminar</div>
+        </div>
+      </div>
+      <button class="ag-btn ag-btn-primary" id="dialog-btn">Abrir diálogo</button>
+    </div>
+  </section>
+</div>
+
+<div class="dialog-backdrop" id="dialog" hidden>
+  <div class="ag-card dialog dialog-in">
+    <div class="ag-title">¿Promover a producción?</div>
+    <p class="ag-muted">El mismo binario que se probó en beta.</p>
+    <div class="row" style="justify-content:flex-end">
+      <button class="ag-btn" id="dialog-close">Cancelar</button>
+      <button class="ag-btn ag-btn-primary">Promover</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const sw = [['--bg','fondo'],['--shell','marco'],['--card','tarjeta'],['--raised','elevado'],['--overlay','flotante'],
+  ['--border-strong','borde fuerte'],['--hover','hover'],['--accent','acento sage'],['--accent-soft','seleccionado'],['--accent-fill','relleno militar']];
+const cs = getComputedStyle(document.documentElement);
+document.getElementById('swatches').innerHTML = sw.map(([v, n], i) =>
+  `<div class="swatch" style="--i:${i}"><b style="background:var(${v})"></b><span>${n}<br>${cs.getPropertyValue(v).trim()}</span></div>`).join('');
+document.getElementById('list').innerHTML = Array.from({length: 14}, (_, i) => `<div>Movimiento ${i + 1}</div>`).join('');
+const col = document.getElementById('col');
+document.getElementById('toggle').onclick = e => { col.classList.toggle('is-closed'); e.target.textContent = col.classList.contains('is-closed') ? 'Desplegar' : 'Plegar'; };
+const menu = document.getElementById('menu');
+document.getElementById('menu-btn').onclick = () => {
+  if (menu.hidden) { menu.hidden = false; menu.className = 'glass menu-in'; }
+  else { menu.className = 'glass menu-out'; setTimeout(() => menu.hidden = true, 100); }
+};
+const dlg = document.getElementById('dialog');
+document.getElementById('dialog-btn').onclick = () => { dlg.hidden = false; };
+document.getElementById('dialog-close').onclick = () => { dlg.hidden = true; };
+</script>
+</body>
+</html>
