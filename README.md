@@ -13,6 +13,7 @@ Sistema basado en [zeron](https://github.com/zeronsh/zeron) (MIT). Fuentes: [Gei
 | `motion.css` | `.fade-in .settle-in .menu-in .menu-out .dialog-in .stagger .hover-fade .collapse .ag-loader`; reduced-motion |
 | `glass.css` | `.glass` solo para flotantes; difuminado solo con puntero fino, sólido en táctil |
 | `components.css` | `.ag-card .ag-btn(-primary/-ghost/-danger) .ag-input .ag-chip .ag-label .ag-title .ag-edge-fade` |
+| `toast.css` + `toast.js` | Avisos en lugar de `alert()`: `agToast({ kind, title, message, duration })`, kinds `info success warning error`; apilados arriba al centro, máx. 3, clic para cerrar, se van solos (4,5 s; errores 6,5 s) |
 | `gallery.html` | Muestra de todo, para comparar |
 
 ## Usar
@@ -20,6 +21,7 @@ Sistema basado en [zeron](https://github.com/zeronsh/zeron) (MIT). Fuentes: [Gei
     nu sync.nu <carpeta-del-proyecto>      # copia la versión actual (sin CDN)
 
     <link rel="stylesheet" href="/agapornis-ui/agapornis.css">
+    <script src="/agapornis-ui/toast.js" defer></script>
 
 ## Contraste (WCAG, sobre `--bg #060606`)
 

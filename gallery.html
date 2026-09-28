@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>agapornis-ui — galería</title>
 <link rel="stylesheet" href="agapornis.css" />
+<script src="toast.js" defer></script>
 <style>
   body { margin: 0; }
   .wrap { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
@@ -59,6 +60,16 @@
       <span class="ag-chip">backlog</span>
       <span class="ag-chip is-active">activo</span>
       <span class="ag-loader" aria-label="cargando"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i></span>
+    </div>
+  </section>
+
+  <section>
+    <div class="ag-label">Avisos (en lugar de alert)</div>
+    <div class="row">
+      <button class="ag-btn" onclick="agToast({kind:'error', title:'No se pudo entrar', message:'Ya hay alguien con ese nombre en la sala.'})">Error</button>
+      <button class="ag-btn" onclick="agToast({kind:'warning', title:'Partida cancelada', message:'calito se desconectó'})">Aviso</button>
+      <button class="ag-btn" onclick="agToast({kind:'success', message:'Guardado'})">Éxito</button>
+      <button class="ag-btn" onclick="agToast({title:'Sala creada', message:'Comparte el código 8SQDR4'})">Info</button>
     </div>
   </section>
 
