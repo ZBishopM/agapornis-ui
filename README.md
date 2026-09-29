@@ -14,6 +14,7 @@ Sistema basado en [zeron](https://github.com/zeronsh/zeron) (MIT). Fuentes: [Gei
 | `glass.css` | `.glass` solo para flotantes; difuminado solo con puntero fino, sólido en táctil |
 | `components.css` | `.ag-card .ag-btn(-primary/-ghost/-danger) .ag-input .ag-chip .ag-label .ag-title .ag-edge-fade` |
 | `toast.css` + `toast.js` | Avisos en lugar de `alert()`: `agToast({ kind, title, message, duration })`, kinds `info success warning error`; apilados arriba al centro, máx. 3, clic para cerrar, se van solos (4,5 s; errores 6,5 s) |
+| `dial.css` + `dial.js` | Contador de diales (Elo): `agDial(el, { from, to, skin, label, onStep })` → Promise. Un tambor por dígito con los 10 números; acarreo de cuentakilómetros (de [tactile-odometer](https://github.com/cipriantitire/tactile-odometer), MIT). Pieles `fun` (sage, muelle) y `glory` (piedra y bronce, arranque pesado, trinquete y golpe final). Con movimiento reducido pinta el valor final |
 | `gallery.html` | Muestra de todo, para comparar |
 
 ## Usar
@@ -22,6 +23,7 @@ Sistema basado en [zeron](https://github.com/zeronsh/zeron) (MIT). Fuentes: [Gei
 
     <link rel="stylesheet" href="/agapornis-ui/agapornis.css">
     <script src="/agapornis-ui/toast.js" defer></script>
+    <script src="/agapornis-ui/dial.js" defer></script>   <!-- si se usa el contador -->
 
 ## Contraste (WCAG, sobre `--bg #060606`)
 
@@ -44,6 +46,11 @@ Sistema basado en [zeron](https://github.com/zeronsh/zeron) (MIT). Fuentes: [Gei
 | Plegar | 180 ms | `--ease-out` |
 | Tamaño | 200 ms | `--ease-out` |
 | Cargador | 2.4 s | pulso escalonado |
+| Diales fun | 1,1–2,4 s | muelle que se pasa un pelo |
+| Diales glory | 1,8–3,4 s | arranque casi quieto, trinquete que frena, golpe |
+
+`dial.js` anima con `requestAnimationFrame`, que el bloque de movimiento
+reducido de `motion.css` no alcanza: por eso lo comprueba él mismo.
 
 ## Versiones
 

@@ -6,6 +6,7 @@
 <title>agapornis-ui — galería</title>
 <link rel="stylesheet" href="agapornis.css" />
 <script src="toast.js" defer></script>
+<script src="dial.js" defer></script>
 <style>
   body { margin: 0; }
   .wrap { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
@@ -74,6 +75,19 @@
   </section>
 
   <section>
+    <div class="ag-label">Contador de diales (Elo)</div>
+    <div class="row" style="gap:28px;align-items:flex-start">
+      <div id="dial-fun-up"></div>
+      <div id="dial-fun-down"></div>
+      <div id="dial-glory-up"></div>
+      <div id="dial-glory-down"></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="ag-btn" id="dial-replay">Repetir</button>
+    </div>
+  </section>
+
+  <section>
     <div class="ag-label">Estados</div>
     <div class="row">
       <span style="color:var(--success)">+ S/ 120,00 ingreso</span>
@@ -137,6 +151,14 @@ document.getElementById('menu-btn').onclick = () => {
   if (menu.hidden) { menu.hidden = false; menu.className = 'glass menu-in'; }
   else { menu.className = 'glass menu-out'; setTimeout(() => menu.hidden = true, 100); }
 };
+const dials = () => {
+  agDial(document.getElementById('dial-fun-up'), { from: 1000, to: 1018 });
+  agDial(document.getElementById('dial-fun-down'), { from: 1043, to: 1031 });
+  agDial(document.getElementById('dial-glory-up'), { from: 1187, to: 1216, skin: 'glory' });
+  agDial(document.getElementById('dial-glory-down'), { from: 1204, to: 1191, skin: 'glory' });
+};
+window.addEventListener('load', dials);
+document.getElementById('dial-replay').onclick = dials;
 const dlg = document.getElementById('dialog');
 document.getElementById('dialog-btn').onclick = () => { dlg.hidden = false; };
 document.getElementById('dialog-close').onclick = () => { dlg.hidden = true; };

@@ -6,7 +6,7 @@
 def main [destino: string] {
     let origen = $env.FILE_PWD
     mkdir ($destino | path join fonts)
-    for f in [agapornis.css tokens.css motion.css glass.css components.css toast.css toast.js VERSION] {
+    for f in [agapornis.css tokens.css motion.css glass.css components.css toast.css toast.js dial.css dial.js VERSION] {
         cp ($origen | path join $f) ($destino | path join $f)
     }
     for f in [geist.woff2 geist-mono.woff2 OFL.txt] {
